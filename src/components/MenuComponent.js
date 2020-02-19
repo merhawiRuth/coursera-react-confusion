@@ -3,7 +3,7 @@ import {
     Card, CardImg, CardImgOverlay, CardText, CardBody,
     CardTitle
 } from 'reactstrap';
-
+import DishDetail from './DishdetailComponent';
 class Menu extends Component {
 
     constructor(props) {
@@ -19,19 +19,29 @@ class Menu extends Component {
     }
 
     renderDish(dish) {
-        if (dish != null)
-            return (
-                <Card>
-                    <CardImg top src={dish.image} alt={dish.name} />
-                    <CardBody>
-                        <CardTitle>{dish.name}</CardTitle>
-                        <CardText>{dish.description}</CardText>
-                    </CardBody>
-                </Card>
+        if (dish != null) {
+            return (<div className="row">
+                <div className="col-12">
+                    <DishDetail dish={dish} />
+                </div>
+            </div>
             );
+        }
         else
             return (
                 <div></div>
+            );
+    }
+    renderComments(dish) {
+        if (dish != null)
+            return (<div>
+                {dish.comments.map(comment => {
+                    return <div className="list-unstyled">
+                        <li className="mb-2">{comment.comment}</li>
+                        <li className="mb-4">{`--${comment.author} ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}`}</li>
+                    </div>
+                })}
+            </div>
             );
     }
 
@@ -51,6 +61,7 @@ class Menu extends Component {
         });
 
         return (
+
             <div className="container">
                 <div className="row">
                     {menu}
@@ -58,6 +69,10 @@ class Menu extends Component {
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         {this.renderDish(this.state.selectedDish)}
+                    </div>
+                    <div className="col-12 col-md-5 m-1">
+                        Comments
+                        {this.renderComments(this.state.selectedDish)}
                     </div>
                 </div>
             </div>
