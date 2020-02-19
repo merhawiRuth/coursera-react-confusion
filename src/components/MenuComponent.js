@@ -32,17 +32,29 @@ class Menu extends Component {
                 <div></div>
             );
     }
-    renderComments(dish) {
-        if (dish != null)
-            return (<div>
-                {dish.comments.map(comment => {
-                    return <div className="list-unstyled">
+    renderComments(detail) {
+        if (detail != null) {
+            const commentItems = detail.comments.map((comment) => {
+                return (
+                    <div>
                         <li className="mb-2">{comment.comment}</li>
                         <li className="mb-4">{`--${comment.author} ${new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(Date.parse(comment.date)))}`}</li>
                     </div>
-                })}
-            </div>
+                );
+            });
+            return (
+                <div>
+                    <h4>Comments</h4>
+                    <ul className="list-unstyled">
+                        {commentItems}
+                    </ul>
+                </div>
             );
+        } else {
+            return (
+                <div></div>
+            );
+        }
     }
 
     render() {
@@ -71,7 +83,6 @@ class Menu extends Component {
                         {this.renderDish(this.state.selectedDish)}
                     </div>
                     <div className="col-12 col-md-5 m-1">
-                        Comments
                         {this.renderComments(this.state.selectedDish)}
                     </div>
                 </div>
