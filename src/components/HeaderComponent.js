@@ -17,10 +17,9 @@ class Header extends Component {
             isNavOpen: !this.state.isNavOpen
         });
     }
-
     render() {
         return (
-            <div>
+            <div className="headerContent">
                 <Navbar dark expand="md">
                     <div className="container">
                         <NavbarToggler onClick={this.toggleNav} />
