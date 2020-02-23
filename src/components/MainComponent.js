@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
+import AboutUs from './AboutComponent';
 import DishDetail from './DishdetailComponent';
 import Home from './HomeComponent.js';
 import { DISHES } from '../shared/dishes';
@@ -49,6 +50,8 @@ class Main extends Component {
                 <Switch>
                     <Route path='/home' component={HomePage} />
                     <Route exact path='/menu' component={() => <Menu dishes={this.state.dishes} />} />
+                    <Route exact path='/aboutus' component={() => <AboutUs leaders={this.state.leaders} />} />
+
                     <Route path='/menu/:dishId' component={DishWithId} />
                     <Route exact path='/contactus' component={Contact} />
                     <Redirect to="/home" />
