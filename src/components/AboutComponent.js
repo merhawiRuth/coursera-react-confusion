@@ -5,12 +5,25 @@ import { Link } from 'react-router-dom';
 function About(props) {
     console.log(props.leader);
 
-    const leaders = props.leaders.map((leader) => {
+    const RenderLeader = ({ leaders }) => {
         return (
-            <p>Leader {leader.name}</p>
-        );
-    });
-
+            <div>{leaders.map((leader) => {
+                return (
+                    <div className="col-12 mt-5">
+                        <Media tag="li">
+                            <Media left>
+                                <Media className="mt-2" object src={leader.image} alt={leader.name} />
+                            </Media>
+                            <Media body className="ml-5">
+                                <Media className="align-items: right;" heading>{leader.name}</Media>
+                                <Media className="align-items: right; mb-3">{leader.designation}</Media>
+                                <p>{leader.description}</p>
+                            </Media>
+                        </Media>
+                    </div>
+                );
+            })}</div>)
+    }
     return (
         <div className="container">
             <div className="row">
@@ -67,11 +80,11 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <RenderLeader leaders={props.leaders} />
                     </Media>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

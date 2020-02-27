@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Navbar, NavbarBrand } from 'reactstrap';
 import Menu from './MenuComponent';
 import AboutUs from './AboutComponent';
-import DishDetail from './DishdetailComponent';
-import Home from './HomeComponent.js';
+import DishDetail from './DishDetailComponent';
+import Home from './HomeComponent';
 import { DISHES } from '../shared/dishes';
 import { COMMENTS } from '../shared/comments';
 import { PROMOTIONS } from '../shared/promotions';
@@ -12,6 +11,8 @@ import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Contact from './ContactComponent';
+
+
 class Main extends Component {
 
     constructor(props) {
