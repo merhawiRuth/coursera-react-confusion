@@ -19,6 +19,11 @@ class CommentForm extends Component {
     toggleModal = () => {
         this.setState({ isModalOpen: !this.state.isModalOpen })
     }
+    handleSubmit = (values) => {
+        console.log("Here");
+        this.toggleModal();
+        alert(JSON.stringify(values))
+    }
 
     render() {
         return (
@@ -32,28 +37,13 @@ class CommentForm extends Component {
                                 <Label htmlFor="firstname" md={3}>Rating</Label>
                                 <Col md={12}>
                                     <Control.select model=".rating" id="rating" name="rating"
-                                        placeholder="First Name"
-                                        className="form-control"
-                                        validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }}
-                                    >
+                                        className="form-control">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
                                         <option value="4">4</option>
                                         <option value="5">5</option>
                                     </Control.select>
-                                    <Errors
-                                        className="text-danger"
-                                        model=".firstname"
-                                        show="touched"
-                                        messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
-                                        }}
-                                    />
                                 </Col>
                             </Row>
                             <Row className="form-group">
@@ -79,18 +69,14 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="firstname" md={3}>Comment</Label>
+                                <Label htmlFor="comment" md={3}>Comment</Label>
                                 <Col md={12}>
                                     <Control.textarea rows="6" model=".comment" id="comment" name="comment"
-                                        placeholder="First Name"
                                         className="form-control"
-                                        validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }}
                                     />
                                     <Errors
                                         className="text-danger"
-                                        model=".firstname"
+                                        model=".comment"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -101,11 +87,11 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Control.button
-                                    model="user" className="btn btn-primary ml-3"
-                                >
-                                    Submit!
-                                </Control.button>
+                                <Col md={{ size: 10, offset: 1 }}>
+                                    <Button type="submit" color="primary">
+                                        Send Feedback
+                                    </Button>
+                                </Col>
                             </Row>
                         </LocalForm>
                     </ModalBody>
