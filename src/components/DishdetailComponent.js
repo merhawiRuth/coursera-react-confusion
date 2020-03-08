@@ -20,9 +20,13 @@ class CommentForm extends Component {
         this.setState({ isModalOpen: !this.state.isModalOpen })
     }
     handleSubmit = (values) => {
-        console.log("Here");
+
+        console.log(values);
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment)
+
         this.toggleModal();
-        alert(JSON.stringify(values))
+        // this.props.addComment(this.props.dishId, values.)
+
     }
 
     render() {
@@ -36,7 +40,7 @@ class CommentForm extends Component {
                             <Row className="form-group">
                                 <Label htmlFor="firstname" md={3}>Rating</Label>
                                 <Col md={12}>
-                                    <Control.select model=".rating" id="rating" name="rating"
+                                    <Control.select model=".rating" id="rating" value="1" name="rating"
                                         className="form-control">
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -47,9 +51,9 @@ class CommentForm extends Component {
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="firstname" md={3}>Your Name</Label>
+                                <Label htmlFor="author" md={3}>Your Name</Label>
                                 <Col md={12}>
-                                    <Control.text model=".yourname" id="yourname" name="yourname"
+                                    <Control.text model=".author" id="author" name="author"
                                         placeholder="Your Name"
                                         className="form-control"
                                         validators={{
@@ -58,7 +62,7 @@ class CommentForm extends Component {
                                     />
                                     <Errors
                                         className="text-danger"
-                                        model=".yourname"
+                                        model=".author"
                                         show="touched"
                                         messages={{
                                             required: 'Required',
@@ -100,7 +104,7 @@ class CommentForm extends Component {
     }
 }
 
-const RenderComments = ({ comments }) => {
+const RenderComments = ({ comments, addComment, dishId }) => {
     const comment = comments.map(comment => {
         return (
             <div key={comment.author}>
@@ -116,7 +120,7 @@ const RenderComments = ({ comments }) => {
     if (comments) {
         return (<div>
             {comment}
-            <CommentForm />
+            <CommentForm addComment={addComment} dishId={dishId} />
         </div>);
     }
     else {
@@ -156,7 +160,7 @@ const DishDetail = (props) => {
 
 
                 <div className="col-12 col-md-5 m-1">
-                    <RenderComments comments={props.comments} />
+                    <RenderComments comments={props.comments} addComment={props.addComment} dishId={props.dish.id} />
                 </div>
             </div>
         </div>
