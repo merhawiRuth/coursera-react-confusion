@@ -145,3 +145,26 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
         .then(response => dispatch(addComment(response)))
         .catch(error => { console.log('post comments', error.message); alert('Your comment could not be posted\nError: ' + error.message); });
 };
+
+
+export const fetchLeaders = () => (dispatch) => {
+
+    dispatch(leadersLoading());
+    return fetch(baseUrl + 'leaders')
+        .then(response => response.json())
+        .then(leader => dispatch(addLeaders(leader)));
+}
+
+export const leadersLoading = () => ({
+    type: ActionTypes.LEADERS_LOADING
+});
+
+export const leadersFailed = (errmess) => ({
+    type: ActionTypes.LEADERS_FAILED,
+    payload: errmess
+});
+
+export const addLeaders = (leader) => ({
+    type: ActionTypes.ADD_LEADERS,
+    payload: leader
+});

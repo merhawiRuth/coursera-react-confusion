@@ -10,7 +10,7 @@ import Contact from './ContactComponent';
 import { connect } from 'react-redux';
 import { Loading } from './LoadingComponent';
 import { actions } from 'react-redux-form';
-import { postComment, fetchDishes, fetchComments, fetchPromos } from '../redux/ActionCreators';
+import { postComment, fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const mapStateToProps = state => {
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
     resetFeedbackForm: () => { dispatch(actions.reset('feedback')) },
     fetchComments: () => dispatch(fetchComments()),
     fetchPromos: () => dispatch(fetchPromos()),
+    fetchLeaders: () => dispatch(fetchLeaders()),
     postComment: (dishId, rating, author, comment) => dispatch(postComment(dishId, rating, author, comment))
 });
 
@@ -40,6 +41,7 @@ class Main extends Component {
         this.props.fetchDishes();
         this.props.fetchComments();
         this.props.fetchPromos();
+        this.props.fetchLeaders();
     }
 
     onDishSelect(dishId) {
@@ -47,6 +49,8 @@ class Main extends Component {
     }
 
     render() {
+        console.log("Herer", JSON.stringify(this.props.leaders));
+
         const HomePage = () => {
             return (
                 <Home
@@ -56,7 +60,9 @@ class Main extends Component {
                     promotion={this.props.promotions.promotions.filter((promo) => promo.featured)[0]}
                     promoLoading={this.props.promotions.isLoading}
                     promoErrMess={this.props.promotions.errMess}
-                    leader={this.props.leaders.filter((leader) => leader.featured)[0]}
+                    leader={this.props.leaders.leaders.filter((leader) => leader.featured)[0]}
+                    leaderLoading={this.props.leaders.isLoading}
+                    leaderErrMess={this.props.leaders.errMess}
                     postComment={this.props.postComment}
                 />
             );
